@@ -11,14 +11,14 @@ app.use(express.static(__dirname +'/public'));
 app.get('/whoami',function(req,res){
 	var re = /\(([^)]+)\)/;
 
-	var ip = req.ip
+	var ip = req.headers['x-forwarded-for'];
 	var lang = req.acceptsLanguages()[0];
 	var software = re.exec(req.headers['user-agent'])[1]
 
 	res.json({
 		"ip-address": ip,
 		"language": lang,
-		"software": software
+		"software": software,
 	})
 })
 
